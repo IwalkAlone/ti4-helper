@@ -1,18 +1,34 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from "./components/HelloWorld.vue";
+import { ref } from "vue";
 
-function a() {
-  return 3;
+const MAX_PLAYERS = 6;
+const playerNames = ref(["Сергей"]);
+
+function addPlayer() {
+  playerNames.value.push("");
 }
 
-a();
+function removePlayer(index: number) {
+  playerNames.value.splice(index, 1);
+}
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div>
+    <ol>
+      <li v-for="(playerName, index) in playerNames" :key="index">
+        <input type="text" :value="playerName" />
+        <button type="button" @click="removePlayer(index)">Remove</button>
+      </li>
+    </ol>
+    <button
+      v-if="playerNames.length < MAX_PLAYERS"
+      type="button"
+      @click="addPlayer"
+    >
+      Add Player
+    </button>
+  </div>
 </template>
 
 <style lang="scss">
@@ -20,8 +36,5 @@ a();
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

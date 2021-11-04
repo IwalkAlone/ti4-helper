@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "cypress": "^8.7.0",
+    "normalize.css": "^8.0.1",
     "vue": "^3.2.16"
   },
   "devDependencies": {
