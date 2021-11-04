@@ -11,8 +11,8 @@ function inc() {
 </script>
 
 <template>
-  <h1>{{ count }}</h1>
-  <button @click="inc">Inc</button>
+  <h1 data-cy="count">{{ count }}</h1>
+  <button data-cy="inc-button" @click="inc">Inc</button>
 </template>
 
 <style scoped>
