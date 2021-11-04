@@ -4,18 +4,22 @@ import db from "./firestore";
 import {
   doc,
   collection,
+  query,
+  orderBy,
   addDoc,
   updateDoc,
   deleteDoc,
   onSnapshot,
-} from "@firebase/firestore";
+  serverTimestamp,
+} from "firebase/firestore";
 
 const MAX_PLAYERS = 6;
 const playersCollectionRef = collection(db, "players");
+const playersQuery = query(playersCollectionRef, orderBy("timestamp"));
 const players: Ref<{ id: string; name: string }[]> = ref([]);
 
-const unsubscribe = onSnapshot(playersCollectionRef, (collection) => {
-  players.value = collection.docs.map((doc) => {
+const unsubscribe = onSnapshot(playersQuery, (querySnapshot) => {
+  players.value = querySnapshot.docs.map((doc) => {
     return {
       id: doc.id,
       name: doc.data().name,
@@ -26,7 +30,7 @@ const unsubscribe = onSnapshot(playersCollectionRef, (collection) => {
 onUnmounted(() => unsubscribe());
 
 function addPlayer() {
-  addDoc(playersCollectionRef, { name: "" });
+  addDoc(playersCollectionRef, { name: "", timestamp: serverTimestamp() });
 }
 
 function updatePlayer(id: string | undefined, $event: Event) {
