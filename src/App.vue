@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onUnmounted, Ref } from "vue";
 import db from "./firestore";
+import { factions } from "@/assets/factions";
+
 import {
   doc,
   collection,
@@ -42,34 +44,71 @@ function updatePlayer(id: string | undefined, $event: Event) {
 function removePlayer(id: string) {
   deleteDoc(doc(playersCollectionRef, id));
 }
+
+function factionBackground(faction: { nameplateBackground: string }) {
+  const backgroundColor = "rgba(49,49,80,1)";
+  return {
+    backgroundImage: `linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 60px, ${backgroundColor} 95px, ${backgroundColor} 100%), url(${faction.nameplateBackground})`,
+  };
+}
 </script>
 
 <template>
-  <div>
-    <ol>
-      <li v-for="player in players" :key="player.id">
-        <input
-          type="text"
-          :value="player.name"
-          @input="updatePlayer(player.id, $event)"
-        />
-        <button type="button" @click="removePlayer(player.id)">Remove</button>
-      </li>
-    </ol>
-    <button
-      v-if="players.length < MAX_PLAYERS"
-      type="button"
-      @click="addPlayer"
+  <ol>
+    <li v-for="player in players" :key="player.id">
+      <input
+        type="text"
+        :value="player.name"
+        @input="updatePlayer(player.id, $event)"
+      />
+      <button type="button" @click="removePlayer(player.id)">Remove</button>
+    </li>
+  </ol>
+  <button v-if="players.length < MAX_PLAYERS" type="button" @click="addPlayer">
+    Add Player
+  </button>
+
+  <div class="flex flex-wrap">
+    <div
+      v-for="faction in factions"
+      :key="faction.name"
+      class="flex min-w-full sm:min-w-90 items-center h-6 mb-1 px-2"
     >
-      Add Player
-    </button>
+      <input
+        :id="faction.name"
+        type="checkbox"
+        :value="faction.name"
+        class=""
+      />
+      <label
+        :for="faction.name"
+        class="
+          pl-6
+          inline-block
+          rounded
+          w-full
+          text-light-100
+          bg-right bg-contain bg-no-repeat
+          uppercase
+          font-ti4
+          border-1 border-dark-100
+        "
+        :style="factionBackground(faction)"
+        >{{ faction.name }}
+      </label>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: "Handel Gothic";
+  src: url("@/assets/fonts/Handel\ Gothic\ Cyrillic.ttf");
 }
 </style>
