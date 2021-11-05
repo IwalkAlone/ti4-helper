@@ -48,7 +48,7 @@ function removePlayer(id: string) {
 function factionBackground(faction: { nameplateBackground: string }) {
   const backgroundColor = "rgba(49,49,80,1)";
   return {
-    backgroundImage: `linear-gradient(to left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 60px, ${backgroundColor} 95px, ${backgroundColor} 100%), url(${faction.nameplateBackground})`,
+    backgroundImage: `linear-gradient(to left, transparent 0%, rgba(49,49,80,0) 40px, ${backgroundColor} 90px, ${backgroundColor} 100%), url(${faction.nameplateBackground})`,
   };
 }
 </script>
@@ -102,7 +102,6 @@ function factionBackground(faction: { nameplateBackground: string }) {
 
 <style lang="scss">
 #app {
-  font-family: Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
