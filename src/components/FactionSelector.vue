@@ -17,7 +17,7 @@ function onInput($event: Event) {
 </script>
 
 <template>
-  <div class="flex min-w-full sm:min-w-90 items-center h-6 mb-1 px-2">
+  <div class="flex min-w-full sm:min-w-90 items-center h-6 mb-1">
     <input
       :id="faction.name"
       type="checkbox"

@@ -1,56 +1,40 @@
-<script setup lang="ts">
-import { ref } from "vue";
-import { Faction, factions } from "@/assets/factions";
-import FactionSelector from "@/components/FactionSelector.vue";
-
-import { storeToRefs } from "pinia";
-import { usePlayersStore } from "./store/playersStore";
-
-const selectedFactions = ref(new Set<Faction>(factions));
-
-const MAX_PLAYERS = 6;
-
-const playersStore = usePlayersStore();
-const { players } = storeToRefs(playersStore);
-
-function factionSelectedChanged(faction: Faction, selected: boolean) {
-  if (selected) {
-    selectedFactions.value.add(faction);
-  } else {
-    selectedFactions.value.delete(faction);
-  }
-}
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <ol>
-    <li v-for="player in players" :key="player.id">
-      <input
-        type="text"
-        :value="player.name"
-        @input="playersStore.updatePlayer(player.id, $event)"
-      />
-      <button type="button" @click="playersStore.removePlayer(player.id)">
-        Remove
-      </button>
-    </li>
-  </ol>
-  <button
-    v-if="players.length < MAX_PLAYERS"
-    type="button"
-    @click="playersStore.addPlayer"
-  >
-    Add Player
-  </button>
+  <div class="fixed h-full w-full flex flex-col p-0">
+    <div class="h-full p-3">
+      <router-view />
+    </div>
 
-  <div class="flex flex-wrap">
-    <FactionSelector
-      v-for="faction in factions"
-      :key="faction.name"
-      :faction="faction"
-      :selected="selectedFactions.has(faction)"
-      @input="factionSelectedChanged(faction, $event)"
-    />
+    <div class="flex items-center h-15">
+      <router-link
+        :to="{ name: 'PlayersSetup' }"
+        class="
+          border-t-1 border-r-1 border-dark-100
+          h-full
+          w-1/2
+          text-center
+          px-3
+          py-1
+          break-words
+        "
+      >
+        &lt;&lt; PlayersSetupP layersSetup
+      </router-link>
+      <router-link
+        :to="{ name: 'BansSetup' }"
+        class="
+          border-t-1 border-dark-100
+          h-full
+          text-center
+          w-1/2
+          px-3
+          py-1
+          break-words
+        "
+        >BansSetup &gt;&gt;</router-link
+      >
+    </div>
   </div>
 </template>
 
@@ -63,5 +47,9 @@ function factionSelectedChanged(faction: Faction, selected: boolean) {
 @font-face {
   font-family: "Handel Gothic";
   src: url("@/assets/fonts/Handel\ Gothic\ Cyrillic.ttf");
+}
+
+.router-link-active {
+  @apply bg-light-900;
 }
 </style>
