@@ -1,52 +1,17 @@
 <script setup lang="ts">
-import { ref, onUnmounted, Ref } from "vue";
-import db from "./firestore";
+import { ref } from "vue";
 import { Faction, factions } from "@/assets/factions";
 import FactionSelector from "@/components/FactionSelector.vue";
 
-import {
-  doc,
-  collection,
-  query,
-  orderBy,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  onSnapshot,
-  serverTimestamp,
-} from "firebase/firestore";
+import { storeToRefs } from "pinia";
+import { usePlayersStore } from "./store/playersStore";
 
 const selectedFactions = ref(new Set<Faction>(factions));
 
 const MAX_PLAYERS = 6;
-const playersCollectionRef = collection(db, "players");
-const playersQuery = query(playersCollectionRef, orderBy("timestamp"));
-const players: Ref<{ id: string; name: string }[]> = ref([]);
 
-const unsubscribe = onSnapshot(playersQuery, (querySnapshot) => {
-  players.value = querySnapshot.docs.map((doc) => {
-    return {
-      id: doc.id,
-      name: doc.data().name,
-    };
-  });
-});
-
-onUnmounted(() => unsubscribe());
-
-function addPlayer() {
-  addDoc(playersCollectionRef, { name: "", timestamp: serverTimestamp() });
-}
-
-function updatePlayer(id: string | undefined, $event: Event) {
-  updateDoc(doc(playersCollectionRef, id), {
-    name: ($event.target as HTMLInputElement).value,
-  });
-}
-
-function removePlayer(id: string) {
-  deleteDoc(doc(playersCollectionRef, id));
-}
+const playersStore = usePlayersStore();
+const { players } = storeToRefs(playersStore);
 
 function factionSelectedChanged(faction: Faction, selected: boolean) {
   if (selected) {
@@ -63,12 +28,18 @@ function factionSelectedChanged(faction: Faction, selected: boolean) {
       <input
         type="text"
         :value="player.name"
-        @input="updatePlayer(player.id, $event)"
+        @input="playersStore.updatePlayer(player.id, $event)"
       />
-      <button type="button" @click="removePlayer(player.id)">Remove</button>
+      <button type="button" @click="playersStore.removePlayer(player.id)">
+        Remove
+      </button>
     </li>
   </ol>
-  <button v-if="players.length < MAX_PLAYERS" type="button" @click="addPlayer">
+  <button
+    v-if="players.length < MAX_PLAYERS"
+    type="button"
+    @click="playersStore.addPlayer"
+  >
     Add Player
   </button>
 
