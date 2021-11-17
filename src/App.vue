@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onUnmounted, Ref } from "vue";
 import db from "./firestore";
-import { factions } from "@/assets/factions";
+import { Faction, factions } from "@/assets/factions";
+import FactionSelector from "@/components/FactionSelector.vue";
 
 import {
   doc,
@@ -14,6 +15,8 @@ import {
   onSnapshot,
   serverTimestamp,
 } from "firebase/firestore";
+
+const selectedFactions = ref(new Set<Faction>(factions));
 
 const MAX_PLAYERS = 6;
 const playersCollectionRef = collection(db, "players");
@@ -45,11 +48,12 @@ function removePlayer(id: string) {
   deleteDoc(doc(playersCollectionRef, id));
 }
 
-function factionBackground(faction: { nameplateBackground: string }) {
-  const backgroundColor = "rgba(49,49,80,1)";
-  return {
-    backgroundImage: `linear-gradient(to left, transparent 0%, rgba(49,49,80,0) 40px, ${backgroundColor} 90px, ${backgroundColor} 100%), url(${faction.nameplateBackground})`,
-  };
+function factionSelectedChanged(faction: Faction, selected: boolean) {
+  if (selected) {
+    selectedFactions.value.add(faction);
+  } else {
+    selectedFactions.value.delete(faction);
+  }
 }
 </script>
 
@@ -69,34 +73,13 @@ function factionBackground(faction: { nameplateBackground: string }) {
   </button>
 
   <div class="flex flex-wrap">
-    <div
+    <FactionSelector
       v-for="faction in factions"
       :key="faction.name"
-      class="flex min-w-full sm:min-w-90 items-center h-6 mb-1 px-2"
-    >
-      <input
-        :id="faction.name"
-        type="checkbox"
-        :value="faction.name"
-        class=""
-      />
-      <label
-        :for="faction.name"
-        class="
-          pl-6
-          inline-block
-          rounded
-          w-full
-          text-light-100
-          bg-right bg-contain bg-no-repeat
-          uppercase
-          font-ti4
-          border-1 border-dark-100
-        "
-        :style="factionBackground(faction)"
-        >{{ faction.name }}
-      </label>
-    </div>
+      :faction="faction"
+      :selected="selectedFactions.has(faction)"
+      @input="factionSelectedChanged(faction, $event)"
+    />
   </div>
 </template>
 
