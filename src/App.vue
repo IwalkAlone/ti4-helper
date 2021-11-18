@@ -2,7 +2,7 @@
 
 <template>
   <div class="fixed h-full w-full flex flex-col p-0">
-    <div class="h-full p-3">
+    <div class="h-full p-3 overflow-y-auto">
       <router-view />
     </div>
 

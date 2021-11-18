@@ -9,11 +9,13 @@
   "dependencies": {
     "cypress": "^8.7.0",
     "firebase": "^9.2.0",
+    "lodash": "^4.17.21",
     "pinia": "^2.0.3",
     "vue": "^3.2.16",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.177",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
     "@vitejs/plugin-vue": "^1.9.3",
