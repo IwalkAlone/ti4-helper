@@ -5,7 +5,7 @@ import { shuffle, range } from "lodash";
 
 let players: Ref<number[][]> = ref([]);
 
-const NUM_PLAYERS = 6;
+const NUM_PLAYERS = 8;
 const FACTIONS_PER_PLAYER = 3;
 const NUM_FACTIONS = 24;
 const NUM_REPETITIONS = (1000 * NUM_FACTIONS) / FACTIONS_PER_PLAYER;

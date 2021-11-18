@@ -8,7 +8,7 @@
 
     <div class="flex items-center h-15">
       <router-link
-        :to="{ name: 'PlayersSetup' }"
+        :to="{ name: 'GameSetup' }"
         class="
           border-t-1 border-r-1 border-dark-100
           h-full
