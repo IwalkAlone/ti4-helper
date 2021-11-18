@@ -2,11 +2,16 @@
 
 <template>
   <div class="fixed h-full w-full flex flex-col p-0">
-    <div class="h-full p-3 overflow-y-auto">
-      <router-view />
+    <div
+      id="page-header"
+      class="border-b-1 border-dark-100 text-center shadow-md shadow-dark-900"
+    >
+      Заголовок
     </div>
 
-    <div class="flex items-center h-15">
+    <div class="h-full p-3 overflow-y-auto"><router-view /></div>
+
+    <div class="flex items-center h-min-15">
       <router-link
         :to="{ name: 'GameSetup' }"
         class="
@@ -19,10 +24,10 @@
           break-words
         "
       >
-        &lt;&lt; PlayersSetupP layersSetup
+        &lt;&lt; Настройки игры
       </router-link>
       <router-link
-        :to="{ name: 'BansSetup' }"
+        :to="{ name: 'FactionSetup' }"
         class="
           border-t-1 border-dark-100
           h-full
@@ -32,8 +37,8 @@
           py-1
           break-words
         "
-        >BansSetup &gt;&gt;</router-link
-      >
+        >Настройки фракций &gt;&gt;
+      </router-link>
     </div>
   </div>
 </template>

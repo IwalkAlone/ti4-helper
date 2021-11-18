@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import GameSetup from "@/components/GameSetup.vue";
-import BansSetup from "@/components/BansSetup.vue";
+import FactionSetup from "@/components/FactionSetup.vue";
+import PlayerRejectedFactions from "@/components/PlayerRejectedFactions.vue";
 import RandomizerTester from "@/components/RandomizerTester.vue";
 
 const routes: RouteRecordRaw[] = [
@@ -10,9 +11,14 @@ const routes: RouteRecordRaw[] = [
     component: GameSetup,
   },
   {
-    name: "BansSetup",
+    name: "FactionSetup",
     path: "/bans",
-    component: BansSetup,
+    component: FactionSetup,
+  },
+  {
+    name: "PlayerRejectedFactions",
+    path: "/bans/player/:id",
+    component: PlayerRejectedFactions,
   },
   {
     name: "RandomizerTester",

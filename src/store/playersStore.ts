@@ -12,7 +12,10 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 
-type Player = { id: string; name: string };
+export interface Player {
+  id: string;
+  name: string;
+}
 
 const playersCollectionRef = collection(db, "players");
 const playersQuery = query(playersCollectionRef, orderBy("timestamp"));
