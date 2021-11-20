@@ -14,7 +14,7 @@ const { enableExpansionContent, guaranteeExpansionRace } = storeToRefs(store);
         type="checkbox"
         class="mr-1"
         :checked="enableExpansionContent"
-        @input="store.$patch({enableExpansionContent: ($event.target as HTMLInputElement).checked})"
+        @input="store.updateRoom({enableExpansionContent: ($event.target as HTMLInputElement).checked})"
       />
       <label for="enableExpansionContent">
         Дополнение "Пророчество Королей"
@@ -26,7 +26,7 @@ const { enableExpansionContent, guaranteeExpansionRace } = storeToRefs(store);
         type="checkbox"
         class="mr-1"
         :checked="guaranteeExpansionRace"
-        @input="store.$patch({guaranteeExpansionRace: ($event.target as HTMLInputElement).checked})"
+        @input="store.updateRoom({guaranteeExpansionRace: ($event.target as HTMLInputElement).checked})"
       />
       <label for="guaranteeExpansionRace">
         Гарантировать 1 расу из дополнения каждому игроку

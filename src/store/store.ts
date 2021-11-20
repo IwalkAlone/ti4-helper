@@ -17,7 +17,8 @@ export interface Player {
   name: string;
 }
 
-const playersCollectionRef = collection(db, "players");
+const roomDoc = doc(db, "rooms/DevRoom");
+const playersCollectionRef = collection(db, "rooms/DevRoom/players");
 const playersQuery = query(playersCollectionRef, orderBy("timestamp"));
 
 export const useRoomStore = defineStore("room", {
@@ -32,6 +33,19 @@ export const useRoomStore = defineStore("room", {
 
   actions: {
     subscribeToFirebase() {
+      onSnapshot(roomDoc, (snapshot) => {
+        const roomData = snapshot.data();
+        if (!roomData) {
+          console.error("Failed to load DevRoom");
+          return;
+        }
+
+        this.$patch({
+          enableExpansionContent: roomData.enableExpansionContent,
+          guaranteeExpansionRace: roomData.guaranteeExpansionRace,
+        });
+      });
+
       onSnapshot(playersQuery, (querySnapshot) => {
         const newPlayers = querySnapshot.docs.map((doc) => {
           return {
@@ -44,6 +58,13 @@ export const useRoomStore = defineStore("room", {
           players: newPlayers,
         });
       });
+    },
+
+    updateRoom(changes: {
+      enableExpansionContent?: boolean;
+      guaranteeExpansionRace?: boolean;
+    }) {
+      updateDoc(roomDoc, changes);
     },
 
     addPlayer() {
