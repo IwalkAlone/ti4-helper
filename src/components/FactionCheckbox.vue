@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { Faction } from "@/assets/factions";
+import { computed } from "vue";
 
-defineProps<{ faction: Faction; selected: boolean }>();
-const emit = defineEmits<{ (e: "input", value: boolean): void }>();
+const props = defineProps<{ faction: Faction; modelValue: Faction[] }>();
+const emit =
+  defineEmits<{ (e: "update:modelValue", value: Faction[]): void }>();
 
 function factionBackground(faction: { nameplateBackground: string }) {
   const backgroundColor = "rgba(49,49,80,1)";
@@ -11,20 +13,20 @@ function factionBackground(faction: { nameplateBackground: string }) {
   };
 }
 
-function onInput($event: Event) {
-  emit("input", ($event.target as HTMLInputElement).checked);
-}
+const checked = computed({
+  get: () => props.modelValue,
+  set: (value) => emit("update:modelValue", value),
+});
 </script>
 
 <template>
   <div class="flex min-w-full sm:min-w-90 items-center h-6 mb-1">
     <input
       :id="faction.name"
+      v-model="checked"
       type="checkbox"
-      :value="faction.name"
       class="hidden"
-      :checked="selected"
-      @input="onInput"
+      :value="faction"
     />
     <label
       :for="faction.name"
@@ -39,7 +41,6 @@ function onInput($event: Event) {
         font-ti4
         border-1 border-dark-100
       "
-      :class="{ 'opacity-60': !selected }"
       :style="factionBackground(faction)"
     >
       {{ faction.name }}
@@ -47,4 +48,8 @@ function onInput($event: Event) {
   </div>
 </template>
 
-<style></style>
+<style>
+:checked + label {
+  @apply opacity-60;
+}
+</style>

@@ -20,12 +20,26 @@ import yssaril from "@/assets/factions/yssaril.jpg";
 
 //TODO: is there a way to do this with glob import?
 //https://vitejs.dev/guide/features.html#glob-import
-export interface Faction {
+
+let idSequence = 1;
+
+interface FactionBase {
   name: string;
   nameplateBackground: string;
 }
 
-export const factions = [
+export class Faction {
+  id = idSequence++;
+  name: string;
+  nameplateBackground: string;
+
+  constructor({ name, nameplateBackground }: FactionBase) {
+    this.name = name;
+    this.nameplateBackground = nameplateBackground;
+  }
+}
+
+const factionBases: FactionBase[] = [
   {
     name: "Арбореки",
     nameplateBackground: arborec,
@@ -95,3 +109,7 @@ export const factions = [
     nameplateBackground: hacan,
   },
 ];
+
+export const factions = factionBases.map((base) => {
+  return new Faction(base);
+});
