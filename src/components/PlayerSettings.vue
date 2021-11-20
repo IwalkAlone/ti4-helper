@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { usePlayersStore } from "@/store/playersStore";
+import { useRoomStore } from "@/store/store";
 const MAX_PLAYERS = 8;
 
-const playersStore = usePlayersStore();
-const { players } = storeToRefs(playersStore);
+const store = useRoomStore();
+const { players } = storeToRefs(store);
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const { players } = storeToRefs(playersStore);
             class="bg-light-100"
             :value="player.name"
             placeholder="Имя игрока"
-            @input="playersStore.updatePlayer(player.id, $event)"
+            @input="store.updatePlayer(player.id, $event)"
           />
         </div>
         <div>
@@ -35,7 +35,7 @@ const { players } = storeToRefs(playersStore);
               rounded
               shadow-dark-900 shadow-md
             "
-            @click="playersStore.removePlayer(player.id)"
+            @click="store.removePlayer(player.id)"
           >
             Удалить
           </button>
@@ -52,7 +52,7 @@ const { players } = storeToRefs(playersStore);
         shadow-dark-900 shadow-md
       "
       type="button"
-      @click="playersStore.addPlayer"
+      @click="store.addPlayer"
     >
       Добавить игрока
     </button>

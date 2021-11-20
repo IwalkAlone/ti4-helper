@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePlayersStore, Player } from "@/store/playersStore";
+import { useRoomStore, Player } from "@/store/store";
 import { storeToRefs } from "pinia";
 import { computed } from "vue-demi";
 import { useRoute } from "vue-router";
@@ -7,8 +7,8 @@ import { Faction, factions } from "@/assets/factions";
 import FactionCheckbox from "@/components/FactionCheckbox.vue";
 import { ref, Ref } from "vue";
 
-const playersStore = usePlayersStore();
-const { players } = storeToRefs(playersStore);
+const store = useRoomStore();
+const { players } = storeToRefs(store);
 
 const route = useRoute();
 const player = computed(() =>

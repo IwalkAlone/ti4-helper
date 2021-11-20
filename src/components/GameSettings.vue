@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useGameSettingsStore } from "@/store/gameSettingsStore";
+import { useRoomStore } from "@/store/store";
 import { storeToRefs } from "pinia";
 
-const store = useGameSettingsStore();
+const store = useRoomStore();
 const { enableExpansionContent, guaranteeExpansionRace } = storeToRefs(store);
 </script>
 

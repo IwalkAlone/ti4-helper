@@ -20,10 +20,12 @@ export interface Player {
 const playersCollectionRef = collection(db, "players");
 const playersQuery = query(playersCollectionRef, orderBy("timestamp"));
 
-export const usePlayersStore = defineStore("players", {
+export const useRoomStore = defineStore("room", {
   state() {
     const players: Player[] = [];
     return {
+      enableExpansionContent: true,
+      guaranteeExpansionRace: true,
       players,
     };
   },

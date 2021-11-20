@@ -1,0 +1,17 @@
+Data structure:
+
+Rooms -> collection
+  Room -> document
+    ExpansionEnabled
+    EnsureExpansionRace
+
+    CurrentAgendaCardId
+    
+
+    Players -> collection
+      Player -> document
+        Name
+        Color
+        Banned Faction IDs
+        Seating Order
+        Selected Faction?

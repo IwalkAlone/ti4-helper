@@ -48,7 +48,7 @@ const checked = computed({
   </div>
 </template>
 
-<style>
+<style scoped lang="scss">
 :checked + label {
   @apply opacity-60;
 }

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
-import { usePlayersStore } from "@/store/playersStore";
+import { useRoomStore } from "@/store/store";
 
-const playersStore = usePlayersStore();
-const { players } = storeToRefs(playersStore);
+const store = useRoomStore();
+const { players } = storeToRefs(store);
 </script>
 
 <template>
