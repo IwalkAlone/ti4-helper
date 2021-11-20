@@ -7,6 +7,9 @@ export default defineConfig({
       fontFamily: {
         ti4: ["'Handel Gothic'", ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        space: "rgba(49, 49, 80)",
+      },
     },
   },
 });

@@ -1,4 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import IconVote from "~icons/fluent/vote-20-filled";
+import IconPresenter from "~icons/fluent/presenter-20-filled";
+import IconPerson from "~icons/fluent/person-settings-20-filled";
+import IconTable from "~icons/fluent/table-cells-merge-20-regular";
+import MainNavLink from "@/components/MainNavLink.vue";
+</script>
 
 <template>
   <div class="fixed h-full w-full flex flex-col p-0">
@@ -11,39 +17,37 @@
 
     <div class="h-full overflow-y-auto"><router-view /></div>
 
-    <div class="flex items-center h-min-15">
-      <router-link
+    <div class="flex items-center pt-2 pb-1 bg-space">
+      <MainNavLink
+        label="Игроки"
+        :icon="IconPerson"
         :to="{ name: 'GameSetup' }"
-        class="
-          border-t-1 border-r-1 border-dark-100
-          h-full
-          w-1/2
-          text-center
-          px-3
-          py-1
-          break-words
-        "
-      >
-        &lt;&lt; Настройки игры
-      </router-link>
-      <router-link
+      />
+      <MainNavLink
+        label="Фракции"
+        :icon="IconVote"
         :to="{ name: 'FactionSetup' }"
-        class="
-          border-t-1 border-dark-100
-          h-full
-          text-center
-          w-1/2
-          px-3
-          py-1
-          break-words
-        "
-        >Настройки фракций &gt;&gt;
-      </router-link>
+      />
+      <MainNavLink
+        label="Рассадка"
+        :icon="IconTable"
+        :to="{ name: 'RandomizerTester' }"
+      />
+      <MainNavLink
+        label="Политика"
+        :icon="IconPresenter"
+        :to="{ name: 'GameSetup' }"
+      />
+      <MainNavLink
+        label="Голоса"
+        :icon="IconVote"
+        :to="{ name: 'GameSetup' }"
+      />
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -52,9 +56,5 @@
 @font-face {
   font-family: "Handel Gothic";
   src: url("@/assets/fonts/Handel\ Gothic\ Cyrillic.ttf");
-}
-
-.router-link-active {
-  @apply bg-light-900;
 }
 </style>
