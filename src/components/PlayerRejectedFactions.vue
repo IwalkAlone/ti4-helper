@@ -2,25 +2,44 @@
 import { useRoomStore, Player } from "@/store/store";
 import { storeToRefs } from "pinia";
 import { computed } from "vue-demi";
-import { useRoute } from "vue-router";
-import { Faction, factions } from "@/assets/factions";
+import { useRouter, useRoute } from "vue-router";
+import { factions } from "@/assets/factions";
 import FactionCheckbox from "@/components/FactionCheckbox.vue";
-import { ref, Ref } from "vue";
+import { ComputedRef, watch } from "vue";
 
 const store = useRoomStore();
 const { players } = storeToRefs(store);
 
+const router = useRouter();
 const route = useRoute();
-const player = computed(() =>
+
+// player may be missing because of an invalid URL, or because it got deleted while we are on the page
+const player: ComputedRef<Player | undefined> = computed(() =>
   players.value.find((player) => player.id === route.params.id)
 );
 
-const rejectedFactions: Ref<Faction[]> = ref([]);
+watch(
+  player,
+  (p) => {
+    if (!p) {
+      router.push({ name: "FactionSetup" });
+    }
+  },
+  { immediate: true }
+);
+
+const rejectedFactions = computed({
+  get: () => (player.value ? player.value.rejectedFactionIds : []),
+  set: (value) => {
+    if (player.value !== undefined) {
+      store.updatePlayer(player.value.id, { rejectedFactionIds: value });
+    }
+  },
+});
 </script>
 
 <template>
-  <div v-if="!player">Player not found</div>
-  <div v-else>
+  <div v-if="player">
     {{ player.name }}
 
     <div>Bans: 5/5</div>

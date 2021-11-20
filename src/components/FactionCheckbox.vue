@@ -2,9 +2,8 @@
 import { Faction } from "@/assets/factions";
 import { computed } from "vue";
 
-const props = defineProps<{ faction: Faction; modelValue: Faction[] }>();
-const emit =
-  defineEmits<{ (e: "update:modelValue", value: Faction[]): void }>();
+const props = defineProps<{ faction: Faction; modelValue: number[] }>();
+const emit = defineEmits<{ (e: "update:modelValue", value: number[]): void }>();
 
 function factionBackground(faction: { nameplateBackground: string }) {
   const backgroundColor = "rgba(49,49,80,1)";
@@ -26,7 +25,7 @@ const checked = computed({
       v-model="checked"
       type="checkbox"
       class="hidden"
-      :value="faction"
+      :value="faction.id"
     />
     <label
       :for="faction.name"

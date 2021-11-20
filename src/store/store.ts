@@ -15,6 +15,7 @@ import {
 export interface Player {
   id: string;
   name: string;
+  rejectedFactionIds: number[];
 }
 
 const roomDoc = doc(db, "rooms/DevRoom");
@@ -47,10 +48,11 @@ export const useRoomStore = defineStore("room", {
       });
 
       onSnapshot(playersQuery, (querySnapshot) => {
-        const newPlayers = querySnapshot.docs.map((doc) => {
+        const newPlayers: Player[] = querySnapshot.docs.map((doc) => {
           return {
             id: doc.id,
             name: doc.data().name,
+            rejectedFactionIds: doc.data().rejectedFactionIds,
           };
         });
 
@@ -68,7 +70,11 @@ export const useRoomStore = defineStore("room", {
     },
 
     addPlayer() {
-      addDoc(playersCollectionRef, { name: "", timestamp: serverTimestamp() });
+      addDoc(playersCollectionRef, {
+        name: "",
+        rejectedFactionIds: [],
+        timestamp: serverTimestamp(),
+      });
     },
 
     updatePlayer(id: string, changes: Partial<Player>) {
