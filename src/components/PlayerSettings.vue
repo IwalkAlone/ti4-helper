@@ -22,7 +22,7 @@ const { players } = storeToRefs(store);
             class="bg-light-100"
             :value="player.name"
             placeholder="Имя игрока"
-            @input="store.updatePlayer(player.id, $event)"
+            @input="store.updatePlayer(player.id, {name: ($event.target as HTMLInputElement).value})"
           />
         </div>
         <div>

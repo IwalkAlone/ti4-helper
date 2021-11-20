@@ -71,10 +71,8 @@ export const useRoomStore = defineStore("room", {
       addDoc(playersCollectionRef, { name: "", timestamp: serverTimestamp() });
     },
 
-    updatePlayer(id: string, $event: Event) {
-      updateDoc(doc(playersCollectionRef, id), {
-        name: ($event.target as HTMLInputElement).value,
-      });
+    updatePlayer(id: string, changes: Partial<Player>) {
+      updateDoc(doc(playersCollectionRef, id), changes);
     },
 
     removePlayer(id: string) {
