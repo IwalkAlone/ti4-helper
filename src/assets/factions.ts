@@ -23,6 +23,8 @@ import yssaril from "@/assets/factions/yssaril.jpg";
 
 let idSequence = 1;
 
+type ComponentSet = "BaseGame" | "ProphecyOfKings";
+
 interface FactionBase {
   name: string;
   nameplateBackground: string;
@@ -32,14 +34,19 @@ export class Faction {
   id = idSequence++;
   name: string;
   nameplateBackground: string;
+  componentSet: ComponentSet;
 
-  constructor({ name, nameplateBackground }: FactionBase) {
+  constructor(
+    { name, nameplateBackground }: FactionBase,
+    componentSet: ComponentSet
+  ) {
     this.name = name;
     this.nameplateBackground = nameplateBackground;
+    this.componentSet = componentSet;
   }
 }
 
-const factionBases: FactionBase[] = [
+const baseGameFactionBases: FactionBase[] = [
   {
     name: "Арбореки",
     nameplateBackground: arborec,
@@ -110,6 +117,19 @@ const factionBases: FactionBase[] = [
   },
 ];
 
-export const factions = factionBases.map((base) => {
-  return new Faction(base);
+const prophecyOfKingsFactionBases: FactionBase[] = [
+  { name: "The Argent Flight", nameplateBackground: argent },
+  { name: "The Nomad", nameplateBackground: nomad },
+];
+
+export const baseGameFactions = baseGameFactionBases.map((base) => {
+  return new Faction(base, "BaseGame");
 });
+
+export const prophecyOfKingsFactions = prophecyOfKingsFactionBases.map(
+  (base) => {
+    return new Faction(base, "ProphecyOfKings");
+  }
+);
+
+export const allFactions = baseGameFactions.concat(prophecyOfKingsFactions);

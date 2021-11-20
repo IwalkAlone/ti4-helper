@@ -2,7 +2,11 @@
 import { Faction } from "@/assets/factions";
 import { computed } from "vue";
 
-const props = defineProps<{ faction: Faction; modelValue: number[] }>();
+const props = defineProps<{
+  faction: Faction;
+  modelValue: number[];
+  preventChecking: boolean;
+}>();
 const emit = defineEmits<{ (e: "update:modelValue", value: number[]): void }>();
 
 function factionBackground(faction: { nameplateBackground: string }) {
@@ -16,6 +20,10 @@ const checked = computed({
   get: () => props.modelValue,
   set: (value) => emit("update:modelValue", value),
 });
+
+const disabled = computed(
+  () => props.preventChecking && !props.modelValue.includes(props.faction.id)
+);
 </script>
 
 <template>
@@ -23,6 +31,7 @@ const checked = computed({
     <input
       :id="faction.name"
       v-model="checked"
+      :disabled="disabled"
       type="checkbox"
       class="hidden"
       :value="faction.id"

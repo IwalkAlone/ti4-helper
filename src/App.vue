@@ -9,7 +9,7 @@
       Заголовок
     </div>
 
-    <div class="h-full p-3 overflow-y-auto"><router-view /></div>
+    <div class="h-full overflow-y-auto"><router-view /></div>
 
     <div class="flex items-center h-min-15">
       <router-link

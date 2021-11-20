@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, Ref } from "vue";
-import { Faction, factions } from "@/assets/factions";
 import { shuffle, range } from "lodash";
 
 let players: Ref<number[][]> = ref([]);

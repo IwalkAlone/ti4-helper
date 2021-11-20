@@ -4,6 +4,8 @@ import GameSettings from "./GameSettings.vue";
 </script>
 
 <template>
-  <PlayerSettings class="mb-3" />
-  <GameSettings />
+  <div class="p-3">
+    <PlayerSettings class="mb-3" />
+    <GameSettings />
+  </div>
 </template>
