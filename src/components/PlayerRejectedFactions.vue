@@ -22,11 +22,10 @@ const player: ComputedRef<Player | undefined> = computed(() =>
   players.value.find((player) => player.id === route.params.id)
 );
 
-// bugged - navigation to other route causes this to trigger
 watch(
   player,
   (p) => {
-    if (!p) {
+    if (route.name === "PlayerRejectedFactions" && !p) {
       router.push({ name: "FactionSetup" });
     }
   },
