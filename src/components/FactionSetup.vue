@@ -2,6 +2,8 @@
 import { storeToRefs } from "pinia";
 import { Player, useRoomStore } from "@/store/store";
 import { allFactions } from "@/assets/factions";
+import PageHeader from "@/components/PageHeader.vue";
+import IconForward from "~icons/fluent/chevron-double-right-20-regular";
 
 const store = useRoomStore();
 const { players } = storeToRefs(store);
@@ -20,6 +22,7 @@ function rejectedFactionsText(player: Player) {
 </script>
 
 <template>
+  <PageHeader title="Исключить фракции" />
   <div class="p-3">
     <router-link
       v-for="(player, index) in players"
@@ -41,7 +44,7 @@ function rejectedFactionsText(player: Player) {
           {{ rejectedFactionsText(player) }}
         </div>
       </div>
-      <div>></div>
+      <IconForward class="flex-shrink-0" />
     </router-link>
   </div>
 </template>

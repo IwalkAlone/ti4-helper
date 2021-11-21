@@ -8,21 +8,16 @@ import MainNavLink from "@/components/MainNavLink.vue";
 
 <template>
   <div class="h-full flex flex-col p-0">
-    <div
-      id="page-header"
-      class="border-b-1 border-dark-100 text-center shadow-md shadow-dark-900"
-    >
-      Заголовок
-    </div>
-
-    <div class="h-full overflow-y-auto pb-15"><router-view /></div>
+    <div class="h-full pb-15"><router-view /></div>
 
     <div class="fixed bottom-0 w-full flex items-center h-15 pt-1 bg-space">
+      <!-- TODO match icons by partial path so they are active when sub-view is active? -->
       <MainNavLink
         label="Игроки"
         :icon="IconPerson"
         :to="{ name: 'GameSetup' }"
       />
+      <!-- TODO missing icon -->
       <MainNavLink
         label="Фракции"
         :icon="IconVote"

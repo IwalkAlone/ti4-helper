@@ -7,6 +7,8 @@ import { baseGameFactions, prophecyOfKingsFactions } from "@/assets/factions";
 import FactionCheckbox from "@/components/FactionCheckbox.vue";
 import { ComputedRef, watch } from "vue";
 import { intersection } from "lodash";
+import IconBack from "~icons/fluent/chevron-double-left-20-regular";
+import PageHeader from "@/components/PageHeader.vue";
 
 const MAX_BANS = 5;
 const MAX_EXPANSION_BANS = 1;
@@ -57,27 +59,45 @@ const expansionBansDisabled = computed(
 
 <template>
   <template v-if="player">
+    <PageHeader title="Исключить фракции" />
+
     <div
       class="
         px-3
+        py-1
         border-b-1 border-b-dark-900
         sticky
-        top-0
+        top-8
         z-10
         bg-light-100
         shadow-dark-900 shadow-md
       "
     >
-      <div>
-        <div>
-          Исключено фракций: {{ rejectedFactions.length }}/{{ MAX_BANS }}
+      <router-link
+        class="flex items-center justify-between"
+        :to="{ name: 'FactionSetup' }"
+      >
+        <IconBack class="flex-shrink-0" />
+        <div class="text-right text-sm">
+          <div>Игрок: {{ player.name }}</div>
+          <div>
+            Всего:
+            <span class="text-base" :class="{ 'text-red-800': bansDisabled }">
+              {{ rejectedFactions.length }}/{{ MAX_BANS }}
+            </span>
+
+            <template v-if="enableExpansionContent">
+              , из дополнения:
+              <span
+                class="text-base"
+                :class="{ 'text-red-800': expansionBansDisabled }"
+              >
+                {{ expansionBanCount }}/{{ MAX_EXPANSION_BANS }}
+              </span>
+            </template>
+          </div>
         </div>
-        <div>
-          Исключено фракций из дополнения: {{ expansionBanCount }}/{{
-            MAX_EXPANSION_BANS
-          }}
-        </div>
-      </div>
+      </router-link>
     </div>
 
     <div class="p-3">
@@ -89,35 +109,37 @@ const expansionBansDisabled = computed(
         :faction="faction"
       />
 
-      <div
-        class="
-          text-center
-          my-2
-          relative
-          after:content-[attr(data-content)]
-          after:absolute
-          after:top-1/2
-          after:left-0
-          after:w-full
-          after:border-b-1
-          after:border-light-900
-          after:-z-10
-        "
-      >
-        <span class="bg-light-100 px-3 z-10 text-sm text-gray-500">
-          Пророчество Королей
-        </span>
-      </div>
+      <template v-if="enableExpansionContent">
+        <div
+          class="
+            text-center
+            my-2
+            relative
+            after:content-[attr(data-content)]
+            after:absolute
+            after:top-1/2
+            after:left-0
+            after:w-full
+            after:border-b-1
+            after:border-light-900
+            after:-z-10
+          "
+        >
+          <span class="bg-light-100 px-3 z-10 text-sm text-gray-500">
+            Пророчество Королей
+          </span>
+        </div>
 
-      <div v-if="enableExpansionContent">
-        <FactionCheckbox
-          v-for="faction in prophecyOfKingsFactions"
-          :key="faction.name"
-          v-model="rejectedFactions"
-          :prevent-checking="expansionBansDisabled"
-          :faction="faction"
-        />
-      </div>
+        <div>
+          <FactionCheckbox
+            v-for="faction in prophecyOfKingsFactions"
+            :key="faction.name"
+            v-model="rejectedFactions"
+            :prevent-checking="expansionBansDisabled"
+            :faction="faction"
+          />
+        </div>
+      </template>
     </div>
   </template>
 </template>
