@@ -7,7 +7,7 @@ import MainNavLink from "@/components/MainNavLink.vue";
 </script>
 
 <template>
-  <div class="fixed h-full w-full flex flex-col p-0">
+  <div class="h-full flex flex-col p-0">
     <div
       id="page-header"
       class="border-b-1 border-dark-100 text-center shadow-md shadow-dark-900"
@@ -15,9 +15,9 @@ import MainNavLink from "@/components/MainNavLink.vue";
       Заголовок
     </div>
 
-    <div class="h-full overflow-y-auto"><router-view /></div>
+    <div class="h-full overflow-y-auto pb-15"><router-view /></div>
 
-    <div class="flex items-center pt-2 pb-1 bg-space">
+    <div class="fixed bottom-0 w-full flex items-center h-15 pt-1 bg-space">
       <MainNavLink
         label="Игроки"
         :icon="IconPerson"
