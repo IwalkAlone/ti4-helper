@@ -1,16 +1,51 @@
 <script setup lang="ts">
 import { useRoomStore } from "@/store/store";
 import { storeToRefs } from "pinia";
-import { allFactions } from "@/assets/factions";
+import {
+  baseGameFactions,
+  prophecyOfKingsFactions,
+  allFactions,
+  Faction,
+} from "@/assets/factions";
 import randomiseFactions, { RandomisationResult } from "@/factionRandomiser";
 import { ref, Ref } from "vue";
 
 const store = useRoomStore();
-const { players } = storeToRefs(store);
+const { players, guaranteeExpansionRace } = storeToRefs(store);
 
 const result: Ref<RandomisationResult | undefined> = ref();
 
 function generate() {
+  if (guaranteeExpansionRace.value) {
+    // generate both separately, use base game player order
+    const baseGameResult = randomiseFactions(
+      players.value,
+      baseGameFactions,
+      2
+    );
+    const prophecyOfKingsResult = randomiseFactions(
+      players.value,
+      prophecyOfKingsFactions,
+      1
+    );
+
+    if (baseGameResult === "timeout" || prophecyOfKingsResult === "timeout") {
+      result.value = "timeout";
+      return;
+    }
+
+    baseGameResult.forEach(({ player, factions }) => {
+      const expansionFaction = prophecyOfKingsResult.find(
+        (item) => item.player.id === player.id
+      )?.factions[0] as Faction;
+
+      factions.push(expansionFaction);
+    });
+
+    result.value = baseGameResult;
+    return;
+  }
+
   result.value = randomiseFactions(players.value, allFactions, 3);
 }
 </script>
