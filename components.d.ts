@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     BaseButton: typeof import('./src/components/BaseButton.vue')['default']
+    FactionCard: typeof import('./src/components/FactionCard.vue')['default']
     FactionCheckbox: typeof import('./src/components/FactionCheckbox.vue')['default']
     FactionSetup: typeof import('./src/components/FactionSetup.vue')['default']
     GameSettings: typeof import('./src/components/GameSettings.vue')['default']
