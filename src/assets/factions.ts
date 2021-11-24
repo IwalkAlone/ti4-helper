@@ -123,13 +123,13 @@ const baseGameFactionBases: FactionBase[] = [
 ];
 
 const prophecyOfKingsFactionBases: FactionBase[] = [
-  { name: "The Argent Flight", nameplateBackground: argent },
-  { name: "The Empyrean", nameplateBackground: empyrean },
-  { name: "The Mahact Gene-Sorcerers", nameplateBackground: mahact },
-  { name: "The Naaz-Rokha Alliance", nameplateBackground: naazrokha },
-  { name: "The Nomad", nameplateBackground: nomad },
-  { name: "The Titans of Ul", nameplateBackground: titans },
-  { name: "The Vuil'Raith Cabal", nameplateBackground: cabal },
+  { name: "Серебряная Стая", nameplateBackground: argent },
+  { name: "Возвышенные", nameplateBackground: empyrean },
+  { name: "Генные Чародеи Мэхакт", nameplateBackground: mahact },
+  { name: "Альянс Нааз-Роха", nameplateBackground: naazrokha },
+  { name: "Кочевник", nameplateBackground: nomad },
+  { name: "Титаны Ула", nameplateBackground: titans },
+  { name: "Кабал Вуил'Райт", nameplateBackground: cabal },
 ];
 
 export const baseGameFactions = baseGameFactionBases.map((base) => {
