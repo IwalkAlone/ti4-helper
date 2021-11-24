@@ -7,10 +7,19 @@ import MainNavLink from "@/components/MainNavLink.vue";
 </script>
 
 <template>
-  <div class="h-full flex flex-col p-0">
-    <div class="h-full pb-15"><router-view /></div>
+  <div
+    class="
+      container
+      h-full
+      p-0
+      md:mx-auto md:w-max-120 md:border-l-1 md:border-r-1
+      border-dark-900
+      bg-light-100
+    "
+  >
+    <div class="h-full overflow-y-auto"><router-view /></div>
 
-    <div class="fixed bottom-0 w-full flex items-center h-15 pt-1 bg-space">
+    <div class="w-full flex items-center h-full pt-1 bg-space">
       <!-- TODO match icons by partial path so they are active when sub-view is active? -->
       <MainNavLink
         label="Игроки"
@@ -42,7 +51,7 @@ import MainNavLink from "@/components/MainNavLink.vue";
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -51,5 +60,10 @@ import MainNavLink from "@/components/MainNavLink.vue";
 @font-face {
   font-family: "Handel Gothic";
   src: url("@/assets/fonts/Handel\ Gothic\ Cyrillic.ttf");
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 1fr 4rem;
 }
 </style>
