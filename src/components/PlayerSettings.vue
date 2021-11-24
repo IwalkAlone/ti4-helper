@@ -26,35 +26,14 @@ const { players } = storeToRefs(store);
           />
         </div>
         <div>
-          <button
-            type="button"
-            class="
-              border-light-900 border-1
-              px-4
-              py-1
-              rounded
-              shadow-dark-900 shadow-md
-            "
-            @click="store.removePlayer(player.id)"
-          >
+          <BaseButton @click="store.removePlayer(player.id)">
             Удалить
-          </button>
+          </BaseButton>
         </div>
       </li>
     </ol>
-    <button
-      v-if="players.length < MAX_PLAYERS"
-      class="
-        border-light-900 border-1
-        px-4
-        py-2
-        rounded
-        shadow-dark-900 shadow-md
-      "
-      type="button"
-      @click="store.addPlayer"
-    >
+    <BaseButton v-if="players.length < MAX_PLAYERS" @click="store.addPlayer">
       Добавить игрока
-    </button>
+    </BaseButton>
   </form>
 </template>

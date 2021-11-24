@@ -26,7 +26,7 @@ import MainNavLink from "@/components/MainNavLink.vue";
       <MainNavLink
         label="Рассадка"
         :icon="IconTable"
-        :to="{ name: 'RandomizerTester' }"
+        :to="{ name: 'Seating' }"
       />
       <MainNavLink
         label="Политика"

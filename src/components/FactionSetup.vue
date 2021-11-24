@@ -2,7 +2,6 @@
 import { storeToRefs } from "pinia";
 import { Player, useRoomStore } from "@/store/store";
 import { allFactions } from "@/assets/factions";
-import PageHeader from "@/components/PageHeader.vue";
 import IconForward from "~icons/fluent/chevron-double-right-20-regular";
 
 const store = useRoomStore();

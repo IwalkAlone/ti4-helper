@@ -3,6 +3,7 @@ import GameSetup from "@/components/GameSetup.vue";
 import FactionSetup from "@/components/FactionSetup.vue";
 import PlayerRejectedFactions from "@/components/PlayerRejectedFactions.vue";
 import RandomizerTester from "@/components/RandomizerTester.vue";
+import SeatingGenerator from "@/components/SeatingGenerator.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -21,9 +22,9 @@ const routes: RouteRecordRaw[] = [
     component: PlayerRejectedFactions,
   },
   {
-    name: "RandomizerTester",
-    path: "/randomizerTester",
-    component: RandomizerTester,
+    name: "Seating",
+    path: "/seating",
+    component: SeatingGenerator,
   },
   {
     path: "/:pathMatch(.*)*",

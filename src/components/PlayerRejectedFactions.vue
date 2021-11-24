@@ -4,11 +4,9 @@ import { storeToRefs } from "pinia";
 import { computed } from "vue-demi";
 import { useRouter, useRoute } from "vue-router";
 import { baseGameFactions, prophecyOfKingsFactions } from "@/assets/factions";
-import FactionCheckbox from "@/components/FactionCheckbox.vue";
 import { ComputedRef, watch } from "vue";
 import { intersection } from "lodash";
 import IconBack from "~icons/fluent/chevron-double-left-20-regular";
-import PageHeader from "@/components/PageHeader.vue";
 
 const MAX_BANS = 5;
 const MAX_EXPANSION_BANS = 1;

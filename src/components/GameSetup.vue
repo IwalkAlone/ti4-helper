@@ -1,9 +1,7 @@
-<script setup lang="ts">
-import PlayerSettings from "./PlayerSettings.vue";
-import GameSettings from "./GameSettings.vue";
-</script>
+<script setup lang="ts"></script>
 
 <template>
+  <PageHeader title="Настройки" />
   <div class="p-3">
     <PlayerSettings class="mb-3" />
     <GameSettings />
